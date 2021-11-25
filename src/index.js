@@ -2,8 +2,8 @@ import Phaser from "phaser";
 
 const config = {
   type: Phaser.AUTO,
-  width: 800,
-  height: 600,
+  width: 1024,
+  height: 720,
   physics: {
     default: "arcade",
     arcade: {
@@ -16,7 +16,7 @@ const config = {
   },
 };
 function preload() {
-  this.load.image("sky", "src/assets/background0.jpg");
+  this.load.image("sky", "../assets/background0.jpg");
 }
 function create() {
   this.add.image(400, 300, "sky");

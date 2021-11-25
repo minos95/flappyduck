@@ -2,6 +2,7 @@ const { merge } = require("webpack-merge"); // For merging this config // with b
 const TerserPlugin = require("terser-webpack-plugin"); // To minify // your JS file in the build folder
 const CopyPlugin = require("copy-webpack-plugin"); // To copy your // assets to the build folder
 const base = require("./base"); // Importing base.js file
+const path = require("path/posix");
 module.exports = merge(base, {
   // Merging this config with base.js // config
   mode: "production", // enable webpack's built-in optimizations  // that correspond to production
@@ -24,10 +25,13 @@ module.exports = merge(base, {
       }),
     ],
   },
-  /*plugins: [
+  /* plugins: [
     new CopyPlugin({
       patterns: [
-        { from: "../src/assets", to: "../dist/assets" }, // Configure // the path from where webpack will copy your assets from and the  // path where it will put it when the build is done, change it     // according to your app organization
+        {
+          from: path.resolve(__dirname, "../../src/assets"),
+          to: path.resolve(__dirname, "build/assets"),
+        }, // Configure // the path from where webpack will copy your assets from and the  // path where it will put it when the build is done, change it     // according to your app organization
       ],
     }),
   ],*/

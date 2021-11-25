@@ -4,6 +4,8 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 // generates an HTML file for your application by injecting        // automatically all your generated bundles.
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 // this plugin will remove all files inside webpack's output.path   // directory, as well as all unused webpack assets after every     // successful rebuild.
+const CopyPlugin = require("copy-webpack-plugin"); // To copy your // assets to the build folder
+
 module.exports = {
   mode: "development", // enable webpack's built-in optimizations // that correspond to development
   devtool: "eval-source-map", // Each module is executed with     // eval() and a SourceMap is added as a DataUrl to the eval().     // Initially it is slow, but it provides fast rebuild speed and    // yields real files
@@ -26,7 +28,7 @@ module.exports = {
       }, // in case you need to use Vertex and Fragment shaders, // this loader will bundle them for you.
       {
         test: /\.(gif|png|jpe?g|svg|xml)$/i,
-        use: "file-loader",
+        use: "asset/resource",
       }, // in case you need to use images, this loader will    // bundle them for you
     ],
   },
@@ -36,7 +38,10 @@ module.exports = {
     }), // specified the path where this plugin will delete the  // files on each rebuild
     new CopyPlugin({
       patterns: [
-        { from: "../src/assets", to: "../dist/assets" }, // Configure // the path from where webpack will copy your assets from and the  // path where it will put it when the build is done, change it     // according to your app organization
+        {
+          from: path.resolve(__dirname, "../src/assets"),
+          to: path.resolve(__dirname, "../dist/assets"),
+        },
       ],
     }),
 
